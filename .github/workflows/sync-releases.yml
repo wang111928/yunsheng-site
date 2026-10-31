@@ -1,0 +1,46 @@
+name: Sync releases snapshot
+
+# 每当 GitHub 发布新 Release，自动刷新官网的发布数据快照并触发 Pages 重新部署。
+# 放在 yunsheng-site 仓库根：.github/workflows/sync-releases.yml
+#
+# 前置：仓库 Settings → Secrets and variables → Actions 里可选加 GITHUB_TOKEN
+#      （默认的 secrets.GITHUB_TOKEN 就够用，无需额外配置）
+
+on:
+  release:
+    types: [published, edited, deleted]
+  schedule:
+    - cron: '17 */6 * * *'   # 每 6 小时兜底同步一次
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Sync releases snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          YS_OWNER: wang111928
+          YS_REPO: yunsheng-player
+        run: node update-releases.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$(git status --porcelain public/data/releases.json)" ]]; then
+            git add public/data/releases.json
+            git commit -m "chore: sync releases snapshot"
+            git push
+          else
+            echo "无变化，跳过提交"
+          fi
