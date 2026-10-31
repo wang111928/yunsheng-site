@@ -635,6 +635,46 @@
     dlg.addEventListener('close', function () { img.removeAttribute('src'); });
   }
 
+  /* ---------------- /help 安装按钮 ----------------
+     1) 从 /api/latest 读真实版本号回填，读不到就保留 HTML 里写死的值
+     2) 点击时向 /api/hit 记一次计数，失败静默 —— 计数不能挡住下载 */
+  function helpDownload() {
+    var btn = document.getElementById('help-dl');
+    if (!btn) return;
+
+    var verEl = document.getElementById('help-ver');
+    var sizeEl = document.getElementById('help-size');
+
+    function fmtSize(n) {
+      if (!n) return '';
+      return (n / 1048576).toFixed(2) + ' MB';
+    }
+
+    fetch('/api/latest', { headers: { Accept: 'application/json' } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.tag) return;
+        if (verEl) verEl.textContent = d.tag;
+        if (sizeEl && d.asset && d.asset.size) sizeEl.textContent = fmtSize(d.asset.size);
+        /* 有 R2 镜像就用镜像地址，否则 /dl/latest 会 302 到 GitHub */
+        if (d.asset && d.asset.mirror) btn.setAttribute('href', d.asset.mirror);
+      })
+      .catch(function () { /* 回落到 HTML 默认值 */ });
+
+    btn.addEventListener('click', function () {
+      var key = btn.getAttribute('data-hit');
+      if (!key || !window.fetch) return;
+      try {
+        fetch('/api/hit', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ key: key }),
+          keepalive: true
+        }).catch(function () {});
+      } catch (e) { /* ignore */ }
+    });
+  }
+
   function start() {
     boot();
     reveal();
@@ -643,6 +683,7 @@
     themeToggle();
     shotLightbox();
     shotsAuto();
+    helpDownload();
   }
 
   if (document.readyState === 'loading') {
