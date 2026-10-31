@@ -9,11 +9,13 @@
   --ink-2: #0b0b0f;
   --ink-3: #121218;
 
-  --paper: #f4f1ea;
-  --paper-2: rgba(244, 241, 234, 0.66);
-  --paper-3: rgba(244, 241, 234, 0.53);
-  --paper-4: rgba(244, 241, 234, 0.27);
-  --paper-5: rgba(244, 241, 234, 0.49);
+  /* 文字层级五档，括号里是实测对比度（WCAG 相对亮度比）
+     正文与辅助两档必须 ≥4.5:1，弱化档只用于非必要信息 */
+  --paper: #f4f1ea;                     /* 主文字  ≈17.0:1 */
+  --paper-2: rgba(244, 241, 234, 0.80); /* 正文    ≈9.8:1 */
+  --paper-3: rgba(244, 241, 234, 0.62); /* 辅助    ≈7.0:1 */
+  --paper-4: rgba(244, 241, 234, 0.46); /* 弱化    ≈4.2:1 */
+  --paper-5: rgba(244, 241, 234, 0.26); /* 装饰    ≈2.1:1 */
 
   --rule: rgba(244, 241, 234, 0.10);
   --rule-2: rgba(244, 241, 234, 0.18);
@@ -51,11 +53,11 @@
   --ink-2: #efeae0;
   --ink-3: #e7e1d5;
 
-  --paper: #15130f;
-  --paper-2: rgba(21, 19, 15, 0.74);
-  --paper-3: rgba(21, 19, 15, 0.62);
-  --paper-4: rgba(21, 19, 15, 0.42);
-  --paper-5: rgba(21, 19, 15, 0.66);
+  --paper: #15130f;                     /* 主文字  ≈16.7:1 */
+  --paper-2: rgba(21, 19, 15, 0.82);    /* 正文    ≈9.8:1 */
+  --paper-3: rgba(21, 19, 15, 0.66);    /* 辅助    ≈5.7:1 */
+  --paper-4: rgba(21, 19, 15, 0.50);    /* 弱化    ≈3.4:1 */
+  --paper-5: rgba(21, 19, 15, 0.30);    /* 装饰    ≈2.0:1 */
 
   --rule: rgba(21, 19, 15, 0.13);
   --rule-2: rgba(21, 19, 15, 0.24);
@@ -417,10 +419,10 @@ h1 .dot { color: var(--red); }
 .specs > div:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
 
 .specs dt {
-  color: var(--paper-4);
+  color: var(--paper-3);
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 10px;
+  letter-spacing: 0.14em;
+  font-size: 11.5px;
   margin-bottom: 3px;
 }
 
@@ -503,9 +505,9 @@ h1 .dot { color: var(--red); }
 .label-text small {
   display: block;
   font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 0.3em;
-  opacity: 0.72;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--paper-3);
   margin-top: 4px;
 }
 
@@ -632,9 +634,9 @@ section + section { border-top: 1px solid var(--rule); }
 
 .feat h3 .tag {
   font-family: var(--mono);
-  font-size: 9.5px;
-  letter-spacing: 0.16em;
-  color: var(--paper-4);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--paper-3);
   border: 1px solid var(--rule-2);
   padding: 2px 6px;
   border-radius: 2px;
@@ -712,9 +714,9 @@ section + section { border-top: 1px solid var(--rule); }
   display: block;
   margin-top: 7px;
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: 12px;
   letter-spacing: 0.1em;
-  color: var(--paper-4);
+  color: var(--paper-3);
 }
 
 .log-tag {
@@ -739,10 +741,16 @@ section + section { border-top: 1px solid var(--rule); }
 }
 
 .log-body {
-  font-size: 13.8px;
-  line-height: 1.82;
+  font-size: 14px;
+  line-height: 1.85;
   color: var(--paper-2);
-  max-width: 66ch;
+  /* 66ch 在窄屏会算到 530px 以上，把 grid 列顶出视口，
+     右侧正文被 overflow-x:hidden 悄悄裁掉。改成取两者较小值，
+     再允许任意位置断行——只有 anywhere 才参与 min-content 计算，
+     break-word 不参与，挡不住长串撑宽。 */
+  max-width: min(66ch, 100%);
+  overflow-wrap: anywhere;
+  word-break: break-word;
   position: relative;
 }
 
@@ -776,10 +784,10 @@ section + section { border-top: 1px solid var(--rule); }
   gap: 7px;
   margin-top: 14px;
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--paper-4);
+  color: var(--paper-3);
   transition: color 0.2s, gap 0.25s;
 }
 
@@ -974,10 +982,10 @@ section + section { border-top: 1px solid var(--rule); }
 .dl-row:last-child { border-bottom: 0; }
 
 .dl-row span {
-  color: var(--paper-4);
+  color: var(--paper-3);
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  font-size: 10.5px;
+  font-size: 12px;
   flex-shrink: 0;
 }
 
@@ -1021,9 +1029,9 @@ details[open] summary, summary:hover { color: var(--paper); }
 
 summary .q {
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.14em;
-  color: var(--paper-4);
+  color: var(--paper-3);
   flex-shrink: 0;
   width: 30px;
 }
@@ -1151,11 +1159,12 @@ footer {
    响应式
    ============================================================ */
 @media (max-width: 1080px) {
-  .hero-in { grid-template-columns: 1fr; gap: 64px; }
+  .hero { padding: 62px 0 70px; }
+  .hero-in { grid-template-columns: 1fr; gap: 46px; }
   .vinyl-stage {
     order: -1;
     width: 100%;
-    max-width: 400px;
+    max-width: 336px;
     margin: 0 auto;
     justify-self: center;
   }
@@ -1168,53 +1177,8 @@ footer {
   .inst .big { font-size: 46px; }
 }
 
-@media (max-width: 760px) {
-  :root { --gut: 22px; }
+/* 移动端重排：见文件末尾（必须排在最后才能覆盖桌面规则） */
 
-  .nav-in { height: 58px; gap: 20px; }
-  .nav-links { display: none; }
-  .nav-cta { margin-left: auto; padding: 8px 14px; font-size: 12.5px; }
-
-  .hero { padding: 56px 0 64px; }
-  .eyebrow { margin-bottom: 24px; }
-  h1 { font-size: clamp(42px, 12vw, 64px); line-height: 0.94; }
-  .hero-note { font-size: 14.5px; margin-top: 28px; }
-  .hero-actions { margin-top: 30px; }
-  .btn { padding: 13px 22px; font-size: 14px; }
-
-  .specs { margin-top: 34px; gap: 0; }
-  .specs > div { padding-right: 20px; margin-right: 20px; }
-  .specs > div:nth-child(3) { border-right: 0; }
-
-  section { padding: 68px 0; }
-  .sec-head { grid-template-columns: 1fr; gap: 12px; margin-bottom: 44px; }
-  .sec-num { padding-top: 0; }
-  .sec-title h2 { font-size: clamp(26px, 7vw, 34px); }
-
-  .feats { grid-template-columns: 1fr; column-gap: 0; }
-  .feat { padding: 22px 0 24px; grid-template-columns: 34px 1fr; }
-
-
-  .log { grid-template-columns: 1fr; gap: 14px; padding: 26px 0 30px; }
-  .log-left { display: flex; align-items: center; gap: 14px; }
-  .log-date { margin-top: 0; }
-  .log-tag { margin-top: 0; }
-  .log-title { font-size: 16.5px; }
-
-  .desk-l, .desk-r { padding: 34px 22px; }
-  .dl-row { font-size: 11.5px; }
-
-  .ans { padding-left: 0; padding-top: 4px; }
-  summary { gap: 14px; padding: 20px 0; font-size: 14.5px; }
-  summary .q { width: 22px; }
-
-  .vinyl-stage::before { inset: -18px; }
-  .arm { display: none; }
-
-  footer { padding: 44px 0 56px; }
-  .foot-brand .wordmark { font-size: 28px; }
-  .foot-links { grid-template-columns: 1fr 1fr; gap: 8px 24px; }
-}
 
 /* ---------------- 唱臂跟随主题 ---------------- */
 .arm svg circle { stroke: var(--rule-2); }
@@ -1249,23 +1213,31 @@ footer {
 [data-theme="light"] .theme-btn .ico-sun { display: block; }
 [data-theme="light"] .theme-btn .ico-moon { display: none; }
 
-@media (max-width: 760px) {
-  .theme-btn { width: 34px; height: 32px; margin-left: 8px; }
-}
+/* .theme-btn 的移动端尺寸已并入主移动端断点 */
 
 
-/* ---------------- 极小字号的可读性下限 ---------------- */
+/* ---------------- 极小字号的可读性下限 ----------------
+   这批原本是 9.5–11.5px。手机上这个尺寸读起来是糊的，
+   统一抬到 12px；同时显式守住等宽字体——这里原来是一串
+   没有声明块的选择器，浏览器把后面那条规则的声明块
+   分给了它们，顺手把等宽字体冲掉了。 */
 .mono,
 .brand em,
 .specs dt,
-.feat .n,
 .feat h3 .tag,
 .log-date,
 .dl-row span,
 summary .q,
-.log-more-btn,
+.log-more-btn {
+  font-size: 12px;
+  font-family: var(--mono);
+}
+
+/* 页脚细字抬到辅助档：免责声明是要读的，不能停在 2.7:1 */
 .disclaimer,
-.foot-brand p
+.foot-brand p {
+  color: var(--paper-3);
+}
 
 
 /* ---------------- 页脚：跟随系统主题 ---------------- */
@@ -1342,9 +1314,6 @@ summary .q,
 
 @media (max-width: 760px) {
   .sec-num::after { display: none; }
-  .log { grid-template-columns: 1fr; gap: 12px; }
-  .log-ver { font-size: 17px; }
-  #install { padding: 60px 0; }
 }
 
 
@@ -1458,12 +1427,7 @@ summary .q,
   .feat p { grid-column: 2; grid-row: 2; }
 }
 
-@media (max-width: 760px) {
-  .feat { grid-template-columns: 1fr; gap: 2px; padding: 17px 0 19px; }
-  .feat .n { margin-bottom: 6px; }
-  .feat h3 { grid-row: auto; }
-  .feat p { grid-column: auto; grid-row: auto; margin-top: 6px; }
-}
+/* .feat 的移动端规则已并入上方主移动端断点 */
 
 /* ---------- 安装：横向流程线 ---------- */
 .installs { position: relative; }
@@ -1513,7 +1477,7 @@ section { padding: 124px 0; }
 #install { padding: 100px 0; }
 
 /* ---------- FAQ 字号 ---------- */
-summary .q { font-size: 16.5px; letter-spacing: -0.01em; }
+summary .q { font-size: 16.5px; letter-spacing: -0.01em; color: var(--paper-3); }
 .ans { font-size: 13.8px; line-height: 1.85; max-width: 68ch; }
 
 @media (max-width: 760px) {
@@ -1686,8 +1650,8 @@ summary .q { font-size: 16.5px; letter-spacing: -0.01em; }
 .bar-slash,
 .bar-total {
   font-family: var(--mono);
-  font-size: 10.5px;
-  color: var(--paper-4);
+  font-size: 12px;
+  color: var(--paper-3);
   letter-spacing: 0.1em;
 }
 
@@ -1831,10 +1795,10 @@ summary .q { font-size: 16.5px; letter-spacing: -0.01em; }
   padding: 6px 12px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   background: transparent;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.92);
   font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
+  font-size: 12px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
   transition: border-color 0.25s, color 0.25s;
@@ -2081,4 +2045,167 @@ footer .wrap { position: relative; z-index: 1; }
   .phone-screen { border-radius: 19px; }
   .device-list li { font-size: 13.5px; }
   .sec-title p::first-letter { font-size: 2.3em; margin-right: 0.07em; }
+}
+
+
+/* ============================================================
+   平板竖屏（≤900）：桌面布局在这个宽度偏挤
+   正文回调到 14px 起，章节导语略放大；手机端由下方的 760 档接管。
+   ============================================================ */
+@media (max-width: 900px) {
+  .feat p { font-size: 14px; line-height: 1.72; }
+  .inst p { font-size: 14px; }
+  .ans { font-size: 14px; line-height: 1.82; }
+  .log-body { font-size: 14px; }
+  .log-title { font-size: 16.5px; }
+  .sec-title p { font-size: 14.5px; line-height: 1.75; }
+  .hero-note { font-size: 14.5px; line-height: 1.78; }
+  .desk-l p { font-size: 14px; }
+
+  /* 元信息小字下限：桌面档最小到 9.5px，这个宽度上读不清 */
+  .feat .n,
+  .sec-num,
+  .log-tag,
+  .log-date,
+  .log-more-btn,
+  .dl-row span,
+  summary .q,
+  .feat h3 .tag,
+  .bar-cap,
+  .bar-txt,
+  .bar-idx {
+    font-size: 11.5px;
+  }
+  .device-kicker { font-size: 11px; }
+}
+
+/* ============================================================
+   移动端重排
+   竖屏 390 是可读性的下限：正文一律 ≥14.5px，元信息 ≥12px，
+   任何元素都不允许超出视口宽度（超出会被 overflow-x 悄悄裁掉）。
+   节奏按"一屏一件事"重排，Hero 压到一屏之内。
+   ============================================================ */
+@media (max-width: 760px) {
+  :root { --gut: 22px; }
+
+  /* ---------- 导航：把宽度算准，别顶出去 ---------- */
+  .nav-in { height: 56px; gap: 12px; }
+  .nav-links { display: none; }
+  .brand { font-size: 14.5px; gap: 9px; }
+  .brand .mark { width: 22px; height: 22px; }
+  .brand em { font-size: 10px; letter-spacing: 0.14em; margin-left: 0; }
+  .nav-cta { margin-left: auto; padding: 8px 12px; font-size: 12px; gap: 6px; }
+  .nav-cta svg { width: 13px; height: 13px; }
+  .theme-btn { width: 32px; height: 30px; margin-left: 4px; }
+
+  /* ---------- Hero：压缩到一屏能看到下个区块 ---------- */
+  .hero { padding: 30px 0 38px; }
+  .hero-in { gap: 28px; }
+  .vinyl-stage { max-width: 196px; }
+  .vinyl-stage::before { inset: -13px; }
+  .arm { display: none; }
+
+  .eyebrow { margin-bottom: 18px; gap: 10px; flex-wrap: wrap; }
+  .eyebrow .ln { width: 26px; }
+  h1 { font-size: clamp(38px, 11.5vw, 52px); line-height: 1.02; letter-spacing: -0.03em; }
+  .hero-note { margin-top: 18px; font-size: 14.5px; line-height: 1.75; max-width: 100%; }
+  .hero-actions { margin-top: 22px; gap: 10px; }
+  .btn { padding: 12px 20px; font-size: 14px; }
+
+  /* 规格从横排挤一行改成两列网格，每个值都能看清 */
+  .specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 16px;
+    margin-top: 24px;
+    padding-top: 18px;
+  }
+  .specs > div {
+    padding: 0;
+    margin: 0;
+    border-right: 0;
+    font-size: 12px;
+    line-height: 1.55;
+    letter-spacing: 0.04em;
+  }
+  .specs dt { font-size: 11px; letter-spacing: 0.1em; margin-bottom: 2px; }
+  .specs dd { font-size: 13px; }
+
+  /* ---------- 章节骨架 ---------- */
+  section { padding: 54px 0; }
+  .sec-head { grid-template-columns: 1fr; gap: 0; margin-bottom: 32px; }
+  .sec-num { padding-top: 0; margin-bottom: 10px; }
+  .sec-title h2 { font-size: clamp(25px, 6.6vw, 32px); line-height: 1.18; }
+  .sec-title p { margin-top: 14px; font-size: 14.5px; line-height: 1.78; max-width: 100%; }
+
+  /* ---------- 功能索引：序号与标题同行，正文缩进对齐 ---------- */
+  .feats { display: block; }
+  .feat {
+    grid-template-columns: 26px minmax(0, 1fr);
+    gap: 0 12px;
+    align-items: start;
+    padding: 18px 0 20px;
+  }
+  .feat .n { font-size: 12px; padding-top: 4px; }
+  .feat h3 { font-size: 16.5px; line-height: 1.42; }
+  .feat p {
+    grid-column: 2;
+    margin: 7px 0 0;
+    font-size: 14.5px;
+    line-height: 1.72;
+    max-width: 100%;
+  }
+  .feat-cta { padding: 18px 0 20px; }
+
+  /* ---------- 更新日志：长串必须断得开 ---------- */
+  .log {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: 22px 0 26px;
+  }
+  .log-left { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; min-width: 0; }
+  .log-ver { font-size: 17px; }
+  .log-date { margin-top: 0; }
+  .log-tag { margin-top: 0; }
+  .log-title { font-size: 16.5px; line-height: 1.45; margin-bottom: 10px; }
+  .log-body { max-width: 100%; font-size: 14.5px; line-height: 1.82; }
+  .log-body code { font-size: 12.5px; overflow-wrap: anywhere; }
+  .tl-more { margin-top: 28px; font-size: 14px; }
+
+  /* ---------- 安装 / 下载台 ---------- */
+  #install { padding: 50px 0; }
+  .inst { padding: 24px 0 26px; }
+  .inst .big { font-size: 42px; }
+  .inst h3 { font-size: 16.5px; margin: 14px 0 8px; }
+  .inst p { font-size: 14.5px; max-width: 100%; }
+
+  .desk-l, .desk-r { padding: 28px 20px; }
+  .desk-l h2 { font-size: 26px; line-height: 1.16; }
+  .desk-l p { margin-top: 14px; font-size: 14.5px; max-width: 100%; }
+  .dl-row { font-size: 12px; padding: 10px 0; gap: 14px; }
+  .dl-row b.sha { font-size: 11.5px; overflow-wrap: anywhere; }
+
+  /* ---------- FAQ ---------- */
+  summary { gap: 12px; padding: 18px 0; font-size: 15px; line-height: 1.5; }
+  summary .q { width: 20px; font-size: 12px; }
+  .ans { padding: 0 0 22px 0; font-size: 14.5px; line-height: 1.8; max-width: 100%; }
+
+  /* ---------- 页脚 ---------- */
+  footer { padding: 38px 0 46px; }
+  .foot-top { gap: 26px; }
+  .foot-brand .wordmark { font-size: 26px; }
+  .foot-brand p { font-size: 12.5px; max-width: 100%; }
+  .foot-links { grid-template-columns: 1fr 1fr; gap: 8px 20px; font-size: 12.5px; }
+  .disclaimer { margin-top: 30px; padding-top: 20px; font-size: 12px; line-height: 1.85; max-width: 100%; }
+
+  /* ---------- 兜底：容器可收缩 + 正文一律允许断词 ---------- */
+  .wrap, .hero-in, .sec-head, .sec-title, .feats, .feat,
+  .log, .log-left, .desk, .desk-l, .desk-r, .installs, .inst,
+  .foot-top, .foot-brand, .faq, details, #device .device-wrap {
+    min-width: 0;
+  }
+  .hero-note, .sec-title p, .feat p, .log-body, .log-title, .ans,
+  .inst p, .desk-l p, .disclaimer, .foot-brand p {
+    overflow-wrap: anywhere;
+  }
 }
