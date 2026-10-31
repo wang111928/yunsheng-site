@@ -16,9 +16,9 @@
 <meta property="og:url" content="https://0721ciallo.xyz/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/style.css?v=20261106" as="style">
-<link rel="stylesheet" href="assets/style.css?v=20261106">
-<script src="assets/theme-init.js?v=20261106"></script>
+<link rel="preload" href="assets/style.css?v=20261107" as="style">
+<link rel="stylesheet" href="assets/style.css?v=20261107">
+<script src="assets/theme-init.js?v=20261107"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -60,6 +60,18 @@
     </button>
   </div>
 </header>
+
+  <nav class="nav-mobile" aria-label="页面导航">
+    <div class="nav-mobile-in">
+      <a href="/" aria-current="page">首页</a>
+      <a href="/#screens">截图</a>
+      <a href="/#features">功能</a>
+      <a href="/changelog">更新日志</a>
+      <a href="/help">安装与问答</a>
+      <a href="/#download">下载</a>
+    </div>
+  </nav>
+
 
 <main id="top">
 
@@ -396,51 +408,6 @@
     </div>
   </section>
 
-  <!-- ============================ 更新日志 ============================ -->
-  <section id="changelog">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <div class="sec-num">03</div>
-        <div class="sec-title">
-          <h2>更新日志已独立成页</h2>
-          <p><span class="dc">逐</span>版本记录单独放在一页，含每个版本的完整说明与 GitHub 直达链接。</p>
-        </div>
-      </div>
-      <p style="margin:0"><a class="btn btn-line" href="/changelog">打开更新日志</a></p>
-    </div>
-  </section>
-
-  <!-- ============================ 安装 ============================ -->
-  <section id="install">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <div class="sec-num">04</div>
-        <div class="sec-title">
-          <h2>三步装好</h2>
-          <p><span class="dc">只</span>构建 Full arm64 单 ABI，安装包 19.81 MB，签名与旧版本一致，可直接覆盖升级。</p>
-        </div>
-      </div>
-
-      <div class="installs">
-        <div class="inst rv" style="--d:0ms">
-          <div class="big">01</div>
-          <h3>下载 APK</h3>
-          <p>点站点按钮跳到 GitHub Releases，拉取 <code>Yunsheng-full-…-arm64-v8a.apk</code>。</p>
-        </div>
-        <div class="inst rv" style="--d:80ms">
-          <div class="big">02</div>
-          <h3>允许安装</h3>
-          <p>首次安装要在系统里允许「安装未知来源应用」，浏览器下载完成后直接点打开。</p>
-        </div>
-        <div class="inst rv" style="--d:160ms">
-          <div class="big">03</div>
-          <h3>覆盖升级</h3>
-          <p>后续在 App「设置 → 检查更新」里直接装，签名一致，登录态、歌单与音频缓存都会保留。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============================ 下载台 ============================ -->
   <section id="download">
     <div class="wrap">
@@ -465,49 +432,6 @@
           <div class="dl-row"><span>ABI</span><b>arm64-v8a</b></div>
           <div class="dl-row"><span>SHA-256</span><b class="sha" id="p-sha">读取中…</b></div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================ FAQ ============================ -->
-  <section id="faq">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <div class="sec-num">05</div>
-        <div class="sec-title">
-          <h2>常见问题</h2>
-        </div>
-      </div>
-
-      <div class="faq">
-        <details class="rv">
-          <summary><span class="q">Q1</span>云声是官方的吗？<span class="ico"></span></summary>
-          <div class="ans">不是。云声是第三方开源客户端，依据公开的重构方案自行实现，与网易云音乐官方无隶属或合作关系。</div>
-        </details>
-        <details class="rv">
-          <summary><span class="q">Q2</span>需要开会员才能听歌吗？<span class="ico"></span></summary>
-          <div class="ans">不需要。音质跟随你账号本身的权益，普通账号也能正常播放，只是可用音质档位不同——云声内置音质降级链，遇到档位不可用会自动降级而不是报错。</div>
-        </details>
-        <details class="rv">
-          <summary><span class="q">Q3</span>支持哪些手机？<span class="ico"></span></summary>
-          <div class="ans">只提供 Full arm64（<code>arm64-v8a</code>）单 ABI 构建，最低 Android 9（API 28），编译目标 Android 16（API 36）。32 位老旧设备没有对应安装包。</div>
-        </details>
-        <details class="rv">
-          <summary><span class="q">Q4</span>登录方式有哪些？<span class="ico"></span></summary>
-          <div class="ans">以 WebView 加载官方登录页为主，扫码为兜底；0.2.42 起 QQ 支持原生授权并自动回跳原登录页完成校验。微信、微博等仍走官网流程，是否原生回跳取决于系统「打开链接」设置。</div>
-        </details>
-        <details class="rv">
-          <summary><span class="q">Q5</span>离线缓存占内存吗？能清吗？<span class="ico"></span></summary>
-          <div class="ans">音频缓存在应用私有持久目录，不设应用层容量上限、不按使用时间自动淘汰，实际只受手机剩余空间限制。设置里的「清理内容缓存」只清封面和歌词，不动歌曲音频；要彻底清空需卸载应用或清除应用数据。</div>
-        </details>
-        <details class="rv">
-          <summary><span class="q">Q6</span>怎么升级？会丢数据吗？<span class="ico"></span></summary>
-          <div class="ans">「设置 → 检查更新」会拉取 GitHub 上的正式 Release，校验包名、签名一致且 versionCode 更高后才允许安装，因此可覆盖升级，登录态、歌单与音频缓存都保留。云声不会降级到更旧的版本。</div>
-        </details>
-        <details class="rv">
-          <summary><span class="q">Q7</span>发现 Bug 或有建议怎么办？<span class="ico"></span></summary>
-          <div class="ans">到 GitHub 仓库提 Issue，附上复现步骤、机型与版本号（版本号在「设置 → 关于」）。更新说明里写的验证范围只覆盖当次改动，未验证到的部分不代表已实现。</div>
-        </details>
       </div>
     </div>
   </section>
@@ -551,6 +475,6 @@
   <img id="lb-img" alt="">
 </dialog>
 
-<script src="assets/app.js?v=20261106"></script>
+<script src="assets/app.js?v=20261107"></script>
 </body>
 </html>

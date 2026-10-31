@@ -2672,3 +2672,109 @@ h1 .outline {
     text-stroke: 1.15px var(--outline-stroke);
   }
 }
+/* ============================================================
+   收尾修正 6 · 手机端导航条 / 分页后首页只留叙事
+   ------------------------------------------------------------
+   原来 @media(max-width:760px) 里写的是 .nav-links{display:none}，
+   手机上整排导航消失，只剩「下载 APK」和主题按钮 ——
+   于是 /changelog 和 /help 在手机上根本无法进入（只能一直滚）。
+   这里补一条手机专用导航：贴在导航栏下方，横向可滚。
+   ============================================================ */
+
+/* 桌面端不显示这条（桌面用原来的 .nav-links） */
+.nav-mobile {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  /* ---------- 手机导航条 ---------- */
+  .nav-mobile {
+    display: block;
+    position: sticky;
+    top: 56px;
+    z-index: 40;
+    background: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    /* 与导航栏同一条底线，避免出现两道分隔 */
+    margin-top: 0;
+  }
+
+  .nav-mobile-in {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 var(--gut);
+  }
+
+  .nav-mobile-in::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-mobile a {
+    flex: 0 0 auto;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 11px 0;
+    margin-right: 22px;
+    font-size: 13.5px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--paper-3);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  .nav-mobile a:last-child {
+    margin-right: 0;
+  }
+
+  .nav-mobile a:active,
+  .nav-mobile a:hover {
+    color: var(--paper);
+  }
+
+  .nav-mobile a[aria-current="page"] {
+    color: var(--red);
+  }
+
+  .nav-mobile a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.5px;
+    background: var(--red);
+  }
+
+  /* 导航条吸顶后，锚点跳转要留出让位空间 */
+  section[id] {
+    scroll-margin-top: 104px;
+  }
+}
+/* 手机导航条微调：收紧间距，让 6 项在 360 宽内正好放满，不产生横向滚动 */
+@media (max-width: 760px) {
+  .nav-mobile-in {
+    justify-content: space-between;
+    overflow-x: visible;
+    padding: 0 var(--gut);
+  }
+
+  .nav-mobile a {
+    margin-right: 0;
+    font-size: 13px;
+    letter-spacing: 0;
+    padding: 11px 0 12px;
+  }
+
+  /* 极窄屏（≤340）再降一档 */
+  @media (max-width: 340px) {
+    .nav-mobile a { font-size: 12px; }
+  }
+}
