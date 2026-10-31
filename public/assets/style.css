@@ -2353,3 +2353,141 @@ summary .ico { margin-left: auto; }
    盖掉 @media (max-width:760px) 里的 11px；桌面档本来就是 11.5px，是空操作。 */
 .specs dt { font-size: 11.5px; }
 .shot figcaption { font-size: 11.5px; }
+/* ============================================================
+   收尾修正 3 · 外缘左右对称 / 序号不再贴屏幕边缘 / 宽屏用满宽度 /
+                首字下沉改为显式 span
+   ------------------------------------------------------------
+   本轮依据（线上实测，非推测）：
+   · #download .desk 在 420 视口量到 L:0 / R:398 —— 只向左出界，
+     左右留白不等，就是"整体靠左、右边留白"的来源
+   · 22 个悬挂序号（.sec-num/.feat .n/summary .q）在 420 视口
+     量到 L:0 / R:22 —— 左内边距就是屏幕边缘，序号直接贴边
+   · #features 正文只到 1203.4（内容列右缘 1912.3），空 669px；
+     #changelog 正文只到 1214，空 698px —— 因为 .feats 在 L1372
+     被改回 display:block，单列 + 正文 68ch 上限
+   · 末行孤字实测两处：宽度 362.8→29 与 369.5→29
+   ============================================================ */
+
+/* ---- 1) 首字下沉：撤掉 ::first-letter，改用显式 span ----
+   ::first-letter 会把"首字母后紧跟的标点"一并纳入首位盒子
+   （CSS Pseudo-Elements 规范），是否真的纳入随内核实现而异：
+   桌面 Chrome 实测只放大了「按」而没放大紧跟的「《」，
+   而手机上部分内核会一起放大 —— 这正是"标点符号也这样"的来源。
+   改成作者显式标注的 span 后，放大范围由 HTML 决定，
+   任何内核都不可能把标点算进来。 */
+.sec-title p::first-letter {
+  float: none;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+.dc {
+  float: left;
+  font-size: 2.05em;
+  line-height: 0.95;
+  font-weight: 600;
+  color: var(--red);
+  margin: 0.02em 0.09em 0 0;
+}
+
+/* ---- 2) 下载台：改为左右对称出界，两侧留白一致 ----
+   原来只有 margin-left:-var(--gut)，左缘贴到视口边、右边仍留 --gut。 */
+#download .desk {
+  margin-right: calc(-1 * var(--gut));
+}
+
+/* ---- 3) 宽屏：条目化内容改回双栏并用满内容列 ----
+   ≥1180px 时每列 552px，约 36 个汉字一行，是中文舒适测量，
+   同时消掉右侧那 670px 空白。 */
+@media (min-width: 1180px) {
+  #features .wrap,
+  #changelog .wrap {
+    padding-right: var(--gut);
+  }
+
+  #features .feats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 96px;
+  }
+
+  #features .feat p,
+  #changelog .log p {
+    max-width: none;
+  }
+
+  /* 双栏里序号不能再挂到栏外，否则会压进左栏文字 */
+  #features .feat .n {
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+    padding: 0;
+    display: block;
+    margin: 0 0 6px;
+  }
+
+  #changelog .tl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 96px;
+    align-items: start;
+  }
+
+  #changelog .tl::before {
+    display: none;
+  }
+}
+
+/* ---- 4) 序号不再挂进左内边距 ----
+   关键：不是"手机才有的问题"。悬挂序号用的是 left:-var(--gut)，
+   只有当视口宽到能把 max-width:1280 的外框居中时（≥1360px），
+   左内边距才落在屏幕内部的空白里；视口比它窄时 .wrap 贴屏幕边，
+   左内边距就是屏幕边缘，序号直接落在 x=0。
+   所以界线按 1280+2×40 = 1360 来划，而不是 760。 */
+@media (max-width: 1360px) {
+  .sec-head .sec-num,
+  .feat .n,
+  summary .q {
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+    padding: 0;
+    display: block;
+    margin: 0 0 7px;
+  }
+
+  .feat .n {
+    margin-bottom: 5px;
+  }
+
+  summary .q {
+    display: inline;
+    margin: 0 7px 0 0;
+  }
+}
+
+/* ---- 5) 首字下沉在小屏上略微收一档 ---- */
+@media (max-width: 760px) {
+  .dc {
+    font-size: 1.9em;
+    margin-right: 0.07em;
+  }
+}
+
+/* ---- 6) 末行只剩一两个字 ---- */
+p,
+li,
+h1,
+h2,
+h3,
+summary,
+figcaption,
+dd,
+dt {
+  text-wrap: pretty;
+}
