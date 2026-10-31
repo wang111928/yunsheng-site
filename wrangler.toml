@@ -1,0 +1,18 @@
+name = "yunsheng"
+compatibility_date = "2026-10-31"
+pages_build_output_dir = "public"
+
+# 绑定：D1 与 KV 已建好（见 CLOUDFLARE.md §6）
+# R2 尚未启用；启用后取消注释并填入 bucket 名
+[[d1_databases]]
+binding = "YS_DB"
+database_name = "yunsheng-db"
+database_id = "e573c08e-1f21-4fb9-9df5-2bd592b7a700"
+
+[[kv_namespaces]]
+binding = "YS_KV"
+id = "b93356dafd5f40d3b7a39da069fa03d8"
+
+# [[r2_buckets]]
+# binding = "YS_R2"
+# bucket_name = "yunsheng-dl"

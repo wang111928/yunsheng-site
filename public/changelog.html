@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>更新日志 · 云声 Yunsheng</title>
+<meta name="description" content="云声 Yunsheng 的逐版本更新记录，实时读取 GitHub Releases，发版后本页自动同步。">
+<meta name="theme-color" content="#07070a">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://0721ciallo.xyz/changelog">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="云声 Yunsheng">
+<meta property="og:title" content="更新日志 · 云声 Yunsheng">
+<meta property="og:description" content="云声的逐版本更新记录，实时同步 GitHub Releases。">
+<meta property="og:url" content="https://0721ciallo.xyz/changelog">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/style.css?v=20261106" as="style">
+<link rel="stylesheet" href="/assets/style.css?v=20261106">
+<script src="/assets/theme-init.js?v=20261106"></script>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/">
+      <span class="mark" aria-hidden="true"></span>
+      <span>云声</span><em>YUNSHENG</em>
+    </a>
+    <nav class="nav-links">
+      <a href="/#screens">界面</a>
+        <a href="/#features">功能</a>
+      <a href="/changelog">更新</a>
+      <a href="/help">安装</a>
+      <a href="/help#faq">问答</a>
+    </nav>
+    <a class="nav-cta" id="nav-dl" href="https://github.com/wang111928/yunsheng-player/releases/latest" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      下载 APK
+    </a>
+    <button class="theme-btn" id="theme-btn" type="button" aria-label="切换深色或浅色主题" title="切换主题">
+      <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section id="changelog" style="padding-top:56px">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">03</div>
+        <div class="sec-title">
+          <h2>更新日志</h2>
+          <p><span class="dc">实</span>时读取 GitHub Releases，发版后本页自动同步，不必改代码。</p>
+        </div>
+      </div>
+
+      <div class="rel-pick">
+        <label class="rel-pick-label" for="rel-select">版本</label>
+        <div class="rel-select-wrap">
+          <select class="rel-select" id="rel-select" aria-label="选择要查看的版本">
+            <option>读取中…</option>
+          </select>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+
+      <div class="tl" id="releases">
+        <div class="log-empty">正在读取发布记录…</div>
+      </div>
+
+      <a class="tl-more" href="https://github.com/wang111928/yunsheng-player/releases" target="_blank" rel="noopener">
+        查看完整发布记录
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+    <div class="foot-clouds" aria-hidden="true">
+      <svg viewBox="0 0 1200 460" preserveAspectRatio="xMidYMax slice">
+        <g fill="none" stroke="var(--cloud-stroke)" stroke-width="1" stroke-linejoin="round" vector-effect="non-scaling-stroke">
+          <path d="M40 392 A70 70 0 0 1 126 314 A92 92 0 0 1 268 268 A108 108 0 0 1 448 232 A100 100 0 0 1 596 250 A96 96 0 0 1 722 300 A82 82 0 0 1 828 370 L828 392 Z" opacity=".9" vector-effect="non-scaling-stroke"/>
+          <path d="M40 392 A70 70 0 0 1 126 314 A92 92 0 0 1 268 268 A108 108 0 0 1 448 232 A100 100 0 0 1 596 250 A96 96 0 0 1 722 300 A82 82 0 0 1 828 370 L828 392 Z" opacity=".5" vector-effect="non-scaling-stroke" transform="translate(430 60) scale(.6 0.6)"/>
+          <path d="M40 392 A70 70 0 0 1 126 314 A92 92 0 0 1 268 268 A108 108 0 0 1 448 232 A100 100 0 0 1 596 250 A96 96 0 0 1 722 300 A82 82 0 0 1 828 370 L828 392 Z" opacity=".28" vector-effect="non-scaling-stroke" transform="translate(760 130) scale(.34 0.34)"/>
+        </g>
+      </svg>
+    </div>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="wordmark">云声<span>.</span></div>
+        <p>Kotlin Multiplatform · Jetpack Compose · 重构版网易云音乐 Android 客户端</p>
+      </div>
+      <div class="foot-links">
+        <a href="https://github.com/wang111928/yunsheng-player" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/wang111928/yunsheng-player/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://github.com/wang111928/yunsheng-player/issues" target="_blank" rel="noopener">反馈问题</a>
+        <a href="/help">安装说明</a>
+        <button class="theme-follow" id="theme-follow" type="button">跟随系统主题</button>
+      </div>
+    </div>
+    <p class="disclaimer">
+      <b>云声为个人学习研究性质的开源项目</b>，与网易云音乐官方无任何关联，不提供任何音乐内容，所有音频与歌词均通过用户本人账号从官方服务获取。
+      请遵守所在地区法律法规与平台服务条款，尊重音乐版权，支持正版。<br>
+      © <span id="year">2026</span> Yunsheng · Built with Kotlin Multiplatform.
+    </p>
+  </div>
+</footer>
+
+
+<script src="/assets/app.js?v=20261106"></script>
+</body>
+</html>

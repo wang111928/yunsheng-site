@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>安装与问答 · 云声 Yunsheng</title>
+<meta name="description" content="云声 Yunsheng 的安装步骤与常见问题：APK 怎么装、签名为什么对不上、登录与音质、歌词与缓存。">
+<meta name="theme-color" content="#07070a">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://0721ciallo.xyz/help">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="云声 Yunsheng">
+<meta property="og:title" content="安装与问答 · 云声 Yunsheng">
+<meta property="og:description" content="三步装好云声，以及最常见的若干问题。">
+<meta property="og:url" content="https://0721ciallo.xyz/help">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/style.css?v=20261106" as="style">
+<link rel="stylesheet" href="/assets/style.css?v=20261106">
+<script src="/assets/theme-init.js?v=20261106"></script>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/">
+      <span class="mark" aria-hidden="true"></span>
+      <span>云声</span><em>YUNSHENG</em>
+    </a>
+    <nav class="nav-links">
+      <a href="/#screens">界面</a>
+        <a href="/#features">功能</a>
+      <a href="/changelog">更新</a>
+      <a href="/help">安装</a>
+      <a href="/help#faq">问答</a>
+    </nav>
+    <a class="nav-cta" id="nav-dl" href="https://github.com/wang111928/yunsheng-player/releases/latest" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      下载 APK
+    </a>
+    <button class="theme-btn" id="theme-btn" type="button" aria-label="切换深色或浅色主题" title="切换主题">
+      <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section id="install" style="padding-top:56px">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">04</div>
+        <div class="sec-title">
+          <h2>三步装好</h2>
+          <p><span class="dc">只</span>构建 Full arm64 单 ABI，安装包 19.81 MB，签名与旧版本一致，可直接覆盖升级。</p>
+        </div>
+      </div>
+
+      <div class="installs">
+        <div class="inst rv" style="--d:0ms">
+          <div class="big">01</div>
+          <h3>下载 APK</h3>
+          <p>点站点按钮跳到 GitHub Releases，拉取 <code>Yunsheng-full-…-arm64-v8a.apk</code>。</p>
+        </div>
+        <div class="inst rv" style="--d:80ms">
+          <div class="big">02</div>
+          <h3>允许安装</h3>
+          <p>首次安装要在系统里允许「安装未知来源应用」，浏览器下载完成后直接点打开。</p>
+        </div>
+        <div class="inst rv" style="--d:160ms">
+          <div class="big">03</div>
+          <h3>覆盖升级</h3>
+          <p>后续在 App「设置 → 检查更新」里直接装，签名一致，登录态、歌单与音频缓存都会保留。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num">05</div>
+        <div class="sec-title">
+          <h2>常见问题</h2>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details class="rv">
+          <summary><span class="q">Q1</span>云声是官方的吗？<span class="ico"></span></summary>
+          <div class="ans">不是。云声是第三方开源客户端，依据公开的重构方案自行实现，与网易云音乐官方无隶属或合作关系。</div>
+        </details>
+        <details class="rv">
+          <summary><span class="q">Q2</span>需要开会员才能听歌吗？<span class="ico"></span></summary>
+          <div class="ans">不需要。音质跟随你账号本身的权益，普通账号也能正常播放，只是可用音质档位不同——云声内置音质降级链，遇到档位不可用会自动降级而不是报错。</div>
+        </details>
+        <details class="rv">
+          <summary><span class="q">Q3</span>支持哪些手机？<span class="ico"></span></summary>
+          <div class="ans">只提供 Full arm64（<code>arm64-v8a</code>）单 ABI 构建，最低 Android 9（API 28），编译目标 Android 16（API 36）。32 位老旧设备没有对应安装包。</div>
+        </details>
+        <details class="rv">
+          <summary><span class="q">Q4</span>登录方式有哪些？<span class="ico"></span></summary>
+          <div class="ans">以 WebView 加载官方登录页为主，扫码为兜底；0.2.42 起 QQ 支持原生授权并自动回跳原登录页完成校验。微信、微博等仍走官网流程，是否原生回跳取决于系统「打开链接」设置。</div>
+        </details>
+        <details class="rv">
+          <summary><span class="q">Q5</span>离线缓存占内存吗？能清吗？<span class="ico"></span></summary>
+          <div class="ans">音频缓存在应用私有持久目录，不设应用层容量上限、不按使用时间自动淘汰，实际只受手机剩余空间限制。设置里的「清理内容缓存」只清封面和歌词，不动歌曲音频；要彻底清空需卸载应用或清除应用数据。</div>
+        </details>
+        <details class="rv">
+          <summary><span class="q">Q6</span>怎么升级？会丢数据吗？<span class="ico"></span></summary>
+          <div class="ans">「设置 → 检查更新」会拉取 GitHub 上的正式 Release，校验包名、签名一致且 versionCode 更高后才允许安装，因此可覆盖升级，登录态、歌单与音频缓存都保留。云声不会降级到更旧的版本。</div>
+        </details>
+        <details class="rv">
+          <summary><span class="q">Q7</span>发现 Bug 或有建议怎么办？<span class="ico"></span></summary>
+          <div class="ans">到 GitHub 仓库提 Issue，附上复现步骤、机型与版本号（版本号在「设置 → 关于」）。更新说明里写的验证范围只覆盖当次改动，未验证到的部分不代表已实现。</div>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+    <div class="foot-clouds" aria-hidden="true">
+      <svg viewBox="0 0 1200 460" preserveAspectRatio="xMidYMax slice">
+        <g fill="none" stroke="var(--cloud-stroke)" stroke-width="1" stroke-linejoin="round" vector-effect="non-scaling-stroke">
+          <path d="M40 392 A70 70 0 0 1 126 314 A92 92 0 0 1 268 268 A108 108 0 0 1 448 232 A100 100 0 0 1 596 250 A96 96 0 0 1 722 300 A82 82 0 0 1 828 370 L828 392 Z" opacity=".9" vector-effect="non-scaling-stroke"/>
+          <path d="M40 392 A70 70 0 0 1 126 314 A92 92 0 0 1 268 268 A108 108 0 0 1 448 232 A100 100 0 0 1 596 250 A96 96 0 0 1 722 300 A82 82 0 0 1 828 370 L828 392 Z" opacity=".5" vector-effect="non-scaling-stroke" transform="translate(430 60) scale(.6 0.6)"/>
+          <path d="M40 392 A70 70 0 0 1 126 314 A92 92 0 0 1 268 268 A108 108 0 0 1 448 232 A100 100 0 0 1 596 250 A96 96 0 0 1 722 300 A82 82 0 0 1 828 370 L828 392 Z" opacity=".28" vector-effect="non-scaling-stroke" transform="translate(760 130) scale(.34 0.34)"/>
+        </g>
+      </svg>
+    </div>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="wordmark">云声<span>.</span></div>
+        <p>Kotlin Multiplatform · Jetpack Compose · 重构版网易云音乐 Android 客户端</p>
+      </div>
+      <div class="foot-links">
+        <a href="https://github.com/wang111928/yunsheng-player" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/wang111928/yunsheng-player/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://github.com/wang111928/yunsheng-player/issues" target="_blank" rel="noopener">反馈问题</a>
+        <a href="/help">安装说明</a>
+        <button class="theme-follow" id="theme-follow" type="button">跟随系统主题</button>
+      </div>
+    </div>
+    <p class="disclaimer">
+      <b>云声为个人学习研究性质的开源项目</b>，与网易云音乐官方无任何关联，不提供任何音乐内容，所有音频与歌词均通过用户本人账号从官方服务获取。
+      请遵守所在地区法律法规与平台服务条款，尊重音乐版权，支持正版。<br>
+      © <span id="year">2026</span> Yunsheng · Built with Kotlin Multiplatform.
+    </p>
+  </div>
+</footer>
+
+
+<script src="/assets/app.js?v=20261106"></script>
+</body>
+</html>

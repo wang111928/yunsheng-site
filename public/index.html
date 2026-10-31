@@ -39,16 +39,16 @@
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top">
+    <a class="brand" href="/">
       <span class="mark" aria-hidden="true"></span>
       <span>云声</span><em>YUNSHENG</em>
     </a>
     <nav class="nav-links">
       <a href="#screens">界面</a>
         <a href="#features">功能</a>
-      <a href="#changelog">更新</a>
-      <a href="#install">安装</a>
-      <a href="#faq">问答</a>
+      <a href="/changelog">更新</a>
+      <a href="/help">安装</a>
+      <a href="/help#faq">问答</a>
     </nav>
     <a class="nav-cta" id="nav-dl" href="https://github.com/wang111928/yunsheng-player/releases/latest" rel="noopener">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -402,29 +402,11 @@
       <div class="sec-head rv">
         <div class="sec-num">03</div>
         <div class="sec-title">
-          <h2>更新日志</h2>
-          <p><span class="dc">实</span>时读取 GitHub Releases，发版后本页自动同步，不必改代码。</p>
+          <h2>更新日志已独立成页</h2>
+          <p><span class="dc">逐</span>版本记录单独放在一页，含每个版本的完整说明与 GitHub 直达链接。</p>
         </div>
       </div>
-
-      <div class="rel-pick">
-        <label class="rel-pick-label" for="rel-select">版本</label>
-        <div class="rel-select-wrap">
-          <select class="rel-select" id="rel-select" aria-label="选择要查看的版本">
-            <option>读取中…</option>
-          </select>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-        </div>
-      </div>
-
-      <div class="tl" id="releases">
-        <div class="log-empty">正在读取发布记录…</div>
-      </div>
-
-      <a class="tl-more" href="https://github.com/wang111928/yunsheng-player/releases" target="_blank" rel="noopener">
-        查看完整发布记录
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
+      <p style="margin:0"><a class="btn btn-line" href="/changelog">打开更新日志</a></p>
     </div>
   </section>
 
@@ -542,7 +524,6 @@
         </g>
       </svg>
     </div>
->
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-brand">
@@ -553,7 +534,7 @@
         <a href="https://github.com/wang111928/yunsheng-player" target="_blank" rel="noopener">GitHub</a>
         <a href="https://github.com/wang111928/yunsheng-player/releases" target="_blank" rel="noopener">Releases</a>
         <a href="https://github.com/wang111928/yunsheng-player/issues" target="_blank" rel="noopener">反馈问题</a>
-        <a href="#install">安装说明</a>
+        <a href="/help">安装说明</a>
         <button class="theme-follow" id="theme-follow" type="button">跟随系统主题</button>
       </div>
     </div>
