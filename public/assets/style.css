@@ -2646,3 +2646,29 @@ h1 .outline {
     max-width: 100%;
   }
 }
+/* ============================================================
+   收尾修正 5 · 描边字改用细字重
+   ------------------------------------------------------------
+   原来的组合是 font-weight: 750（从 h1 继承）+ 1.5px 描边。
+   描边是沿字形轮廓内外各描一半，字重越粗，笔画间那点
+   空白（counter）就越窄，两侧描边一夹就糊成实块：
+   「留」的田字四格、给」的纟旁三笔、自」的内框全部粘连。
+   A/B 实测 200 字重配 1.1px 描边时四字内部间隙最通透，
+   所以描边字单独降重，不再继承 h1 的 750。
+   ============================================================ */
+
+h1 .outline {
+  font-weight: 200;
+  -webkit-text-stroke: 1.2px var(--outline-stroke);
+  text-stroke: 1.2px var(--outline-stroke);
+  letter-spacing: -0.01em;
+}
+
+/* 细字重在小屏会被彻底糊掉，描边和字重都留一档余量 */
+@media (max-width: 760px) {
+  h1 .outline {
+    font-weight: 250;
+    -webkit-text-stroke: 1.15px var(--outline-stroke);
+    text-stroke: 1.15px var(--outline-stroke);
+  }
+}
