@@ -2327,3 +2327,29 @@ summary .ico { margin-left: auto; }
   .shot figcaption { font-size: 11px; }
   .label-text small { font-size: 7px; }
 }
+/* ============================================================
+   收尾修正 · 主按钮红填充 + 元信息字号地板
+   ============================================================ */
+
+/* ---------- 1. 主按钮红：白字压底要过 4.5:1 ----------
+   --red (#e8452c) 是强调色，当作近黑底上的文字/细线约 5.1:1，够用，不动它。
+   但当作填充、白字压上去只有 3.95:1，hover 的 #ff5a3c 更低到 3.10:1。
+   所以填充单独走更深一档的 --red-fill，强调色本身保持不变。 */
+:root {
+  --red-fill: #d0391d;          /* 白字 4.90:1 */
+  --red-fill-hover: #b82f16;    /* 白字 6.06:1 */
+}
+[data-theme="light"] {
+  --red-fill: #c2381f;          /* 白字 5.48:1（浅色下 --red 本来就是这档） */
+  --red-fill-hover: #a92f19;    /* 白字 6.77:1 */
+}
+
+.btn-solid { background: var(--red-fill); }
+.btn-solid:hover { background: var(--red-fill-hover); }
+.nav-cta:hover { background: var(--red-fill); border-color: var(--red-fill); }
+
+/* ---------- 2. 元信息字号地板：11px 的两处补到 11.5px ----------
+   选择器完全相同、媒体查询不增加特异性，所以这两条写在文件末尾即可
+   盖掉 @media (max-width:760px) 里的 11px；桌面档本来就是 11.5px，是空操作。 */
+.specs dt { font-size: 11.5px; }
+.shot figcaption { font-size: 11.5px; }
