@@ -7,7 +7,7 @@
 | `wang111928/yunsheng-site`（本地 `D:\py\yunsheng-site`） | **站点仓库**：Pages 的 Git 源，部署根 `public/`，构建命令留空，自动 SSL | 新增 `functions/`、`migrations/`，以及拆页的三个 HTML |
 | `wang111928/yunsheng-player` | **应用仓库**：云声 APK 发版发生在这里 | 挂一个 GitHub Webhook 指向本站 |
 
-线上 `https://0721ciallo.xyz` · Pages 项目名 `yunsheng-2bj`
+线上 `https://0721ciallo.xyz`（含 `www.0721ciallo.xyz`）· Pages 项目名 **`yunsheng`** · 子域 `yunsheng-2bj.pages.dev`
 托管：Cloudflare Pages（Git 连接，部署根 `public/`，构建命令留空，自动 SSL）
 
 本文分两部分：
@@ -525,7 +525,25 @@ localStorage(ys_rel_v2, 30min)
 
 ## 6. 绑定怎么加（这一步最容易踩坑）
 
-Pages 项目是 **Git 连接**的，绑定有两种加法：
+Pages 项目是 **Git 连接**的，绑定有两种加法。
+
+先记下这个项目的**实测现状**（用 `GET /accounts/{account_id}/pages/projects/yunsheng` 读到的，2026-11-01）：
+
+| 字段 | 实测值 |
+| --- | --- |
+| 项目名 `name` | `yunsheng` |
+| 子域 | `yunsheng-2bj.pages.dev` |
+| 自定义域 | `0721ciallo.xyz`、`www.0721ciallo.xyz` |
+| 生产分支 | `main` |
+| Git 源 | `wang111928/yunsheng-site` |
+| `build_config.build_command` | `""`（留空） |
+| `build_config.destination_dir` | `public` |
+| `build_config.root_dir` | `""`（即仓库根） |
+| `compatibility_date` | `2026-10-31`（preview 与 production 相同） |
+| `compatibility_flags` | 无 |
+| **现有绑定** | **零**（D1 / KV / R2 / 环境变量都没有） |
+
+最后一行说明绑定是**从零开始加**，不会覆盖任何已有配置；`root_dir` 为空也正好印证 `functions/` 要放在**仓库根**，而不是 `public/` 里。
 
 **方式 A：控制台加（推荐）**
 
@@ -543,9 +561,9 @@ Workers & Pages → 选中项目 → Settings → Bindings → Add：
 **方式 B：仓库根放 `wrangler.toml`**
 
 ```toml
-name = "yunsheng-2bj"              # ⚠️ 必须与 Pages 项目名完全一致
-compatibility_date = "2026-11-01"
-pages_build_output_dir = "public"  # ⚠️ 必须等于现在的部署根
+name = "yunsheng"                  # ⚠️ 等于项目名；子域是 yunsheng-2bj.pages.dev，别把子域前缀当项目名
+compatibility_date = "2026-10-31"  # ⚠️ 必须与项目当前值一致，写别的等于悄悄改运行时
+pages_build_output_dir = "public"  # ⚠️ 等于项目当前的 destination_dir
 
 [[d1_databases]]
 binding = "YS_DB"
@@ -561,7 +579,7 @@ binding = "YS_R2"
 bucket_name = "yunsheng-releases"
 ```
 
-⚠️ **风险**：加了 `wrangler.toml` 之后 Pages 会优先读它。`name` 或 `pages_build_output_dir` 写错会直接把 Git 构建弄挂（表现为部署失败或站点变空）。项目名去 `https://<id>.yunsheng-2bj.pages.dev` 里核对。**第一次加之前先确认这两个值，或者干脆用方式 A。**
+⚠️ **风险**：加了 `wrangler.toml` 之后 Pages 会优先读它，上面那三个值任何一个写错都会直接弄挂 Git 构建（表现为部署失败、或站点变空）。三个值应为 `yunsheng` / `2026-10-31` / `public`，已逐项实测核对过。**但方式 A 更省事，也不会把运行时参数写成代码，建议先用 A。**
 
 ---
 
