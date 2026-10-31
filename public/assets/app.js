@@ -178,49 +178,80 @@
     if (y && year) y.textContent = String(year);
   }
 
+  /* 更新日志：下拉选版 + 单条完整展示，默认展示最新版 */
+  var relCache = [];
+
   function renderLog(list) {
     var box = $('releases');
+    var sel = $('rel-select');
     if (!box) return;
 
     if (!list || !list.length) {
+      if (sel) {
+        sel.innerHTML = '<option>暂无记录</option>';
+        sel.disabled = true;
+      }
       box.innerHTML = '<div class="log-empty">暂时读不到发布记录，请到 ' +
         '<a href="https://github.com/' + OWNER + '/' + REPO + '/releases" target="_blank" ' +
         'rel="noopener" style="color:var(--red-2)">GitHub Releases</a> 查看更新。</div>';
       return;
     }
 
-    box.innerHTML = list.slice(0, 5).map(function (r, i) {
-      var html = md(r.body);
-      var body = html.slice(0, 3800);
-      if (html.length > 3800) {
-        body += '<p style="color:var(--paper-4);font-size:12px">…完整说明见 GitHub 发布页</p>';
-      }
-      var tag = i === 0 ? '<span class="log-tag">LATEST</span>' : '';
-      var folded = i > 0 ? ' is-collapsed' : '';
-      var more = i > 0
-        ? '<span class="log-more-btn">展开全文' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" ' +
-          'stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>'
-        : '';
-      return '' +
-        '<article class="log' + folded + '">' +
-        '  <div class="log-left">' +
-        '    <span class="log-ver">v' + esc(r.tag) + '</span>' +
-        '    <span class="log-date">' + fmtDate(r.published_at) + '</span>' +
-        '    ' + tag +
-        '  </div>' +
-        '  <div>' +
-        '    <h3 class="log-title">' + esc(r.name || ('云声 ' + r.tag)) + '</h3>' +
-        '    <div class="log-body">' + body + '</div>' +
-        '    ' + more +
-        '  </div>' +
-        '</article>';
-    }).join('');
+    var rels = list.slice(0, 12);
+    relCache = rels;
 
-    // 折叠态点击展开（一次展开后不再折叠）
-    Array.prototype.forEach.call(box.querySelectorAll('.log.is-collapsed'), function (el) {
-      el.addEventListener('click', function () { el.classList.remove('is-collapsed'); });
-    });
+    /* 下拉项：vX.Y.Z · 日期 */
+    if (sel) {
+      sel.disabled = false;
+      sel.innerHTML = rels.map(function (r, i) {
+        var label = 'v' + esc(r.tag) + ' · ' + fmtDate(r.published_at) +
+          (i === 0 ? '（最新）' : '');
+        return '<option value="' + i + '">' + label + '</option>';
+      }).join('');
+      sel.value = '0';
+      if (!sel.dataset.bound) {
+        sel.dataset.bound = '1';
+        sel.addEventListener('change', function () {
+          var idx = parseInt(sel.value, 10);
+          if (isNaN(idx) || !relCache[idx]) idx = 0;
+          paintLog(idx);
+        });
+      }
+    }
+
+    paintLog(0);
+  }
+
+  function paintLog(i) {
+    var box = $('releases');
+    var r = relCache[i];
+    if (!box || !r) return;
+
+    var html = md(r.body || '');
+    var body = html.length > 12000
+      ? html.slice(0, 12000) + '<p style="color:var(--paper-4);font-size:12px">…完整说明见 GitHub 发布页</p>'
+      : html;
+
+    var tag = i === 0 ? '<span class="log-tag">LATEST</span>' : '';
+    var url = r.html_url || ('https://github.com/' + OWNER + '/' + REPO + '/releases');
+
+    box.innerHTML = '' +
+      '<article class="log">' +
+      '  <div class="log-left">' +
+      '    <span class="log-ver">v' + esc(r.tag) + '</span>' +
+      '    <span class="log-date">' + fmtDate(r.published_at) + '</span>' +
+      '    ' + tag +
+      '  </div>' +
+      '  <div>' +
+      '    <h3 class="log-title">' + esc(r.name || ('云声 ' + r.tag)) + '</h3>' +
+      '    <div class="log-body">' + body + '</div>' +
+      '    <a class="log-src" href="' + esc(url) + '" target="_blank" rel="noopener">' +
+      '      在 GitHub 查看此版本' +
+      '      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" ' +
+      'stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' +
+      '    </a>' +
+      '  </div>' +
+      '</article>';
   }
 
   /* ---------------- 取数 ---------------- */

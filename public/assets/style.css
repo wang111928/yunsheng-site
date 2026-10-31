@@ -2490,4 +2490,159 @@ figcaption,
 dd,
 dt {
   text-wrap: pretty;
+}/* ============================================================
+   收尾修正 4 · 描边字更鲜明 / 更新日志改为下拉选版
+   ------------------------------------------------------------
+   · h1 .outline 原来用 --paper-4（0.46 / 0.50 透明度），
+     在两种主题下都淡到接近背景，看着像没渲染出来。
+   · 更新日志原来一次平铺 5 条、旧版折叠成三行，
+     改为 select 选版 + 单条完整展示，默认最新。
+     因此 ≥1180px 的双栏布局要撤回单列。
+   ============================================================ */
+
+/* ---- 1) 描边字：单独一档中间色，比正文弱、比原来强 ---- */
+:root {
+  --outline-stroke: rgba(244, 241, 234, 0.72);
+}
+
+[data-theme="light"] {
+  --outline-stroke: rgba(21, 19, 15, 0.74);
+}
+
+h1 .outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--outline-stroke);
+  text-stroke: 1.5px var(--outline-stroke);
+}
+
+/* ---- 2) 版本下拉 ---- */
+.rel-pick {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 30px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.rel-pick-label {
+  flex: 0 0 auto;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--paper-4);
+}
+
+.rel-select-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 400px;
+}
+
+.rel-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 14.5px;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: 0.01em;
+  color: var(--paper);
+  background: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 11px 44px 11px 14px;
+  cursor: pointer;
+  transition: border-color 0.25s, color 0.25s;
+}
+
+.rel-select:hover {
+  border-color: var(--paper-4);
+}
+
+.rel-select:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.rel-select option {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.rel-select-wrap > svg {
+  position: absolute;
+  right: 15px;
+  width: 13px;
+  height: 13px;
+  pointer-events: none;
+  color: var(--paper-3);
+}
+
+/* ---- 3) 单版展示：撤掉 ≥1180px 的双栏，一条占满内容列 ---- */
+@media (min-width: 1180px) {
+  #changelog .tl {
+    display: block;
+  }
+
+  #changelog .tl::before {
+    display: none;
+  }
+}
+
+/* 单条时不再需要折叠态与展开按钮 */
+.log .log-body {
+  max-width: min(74ch, 100%);
+}
+
+.log-src {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--paper-3);
+  border-bottom: 1px solid transparent;
+  transition: color 0.25s, border-color 0.25s, gap 0.25s;
+}
+
+.log-src:hover {
+  color: var(--red-2);
+  border-bottom-color: var(--red);
+  gap: 11px;
+}
+
+.log-src svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* ---- 4) 手机端 ---- */
+@media (max-width: 760px) {
+  .rel-pick {
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+  }
+
+  .rel-select-wrap {
+    max-width: none;
+  }
+
+  .rel-select {
+    font-size: 13.5px;
+    padding: 10px 40px 10px 12px;
+  }
+
+  .log .log-body {
+    max-width: 100%;
+  }
 }
