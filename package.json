@@ -1,0 +1,13 @@
+{
+  "name": "yunsheng-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "云声 Yunsheng 官网（Cloudflare Pages 静态站）",
+  "scripts": {
+    "dev": "node server.mjs",
+    "sync": "node update-releases.mjs",
+    "check": "node update-releases.mjs --check",
+    "deploy": "wrangler pages deploy public --project-name yunsheng"
+  }
+}
