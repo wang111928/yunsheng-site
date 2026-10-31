@@ -2209,3 +2209,121 @@ footer .wrap { position: relative; z-index: 1; }
     overflow-wrap: anywhere;
   }
 }
+/* ============================================================
+   单左基准线 · 字体栈收敛
+   —— 本节必须留在文件末尾。媒体查询不提升优先级，
+      同优先级下只有靠后的声明能赢过前面无条件的声明。
+   修正四件事：
+   1) 章节序号 / 功能序号 / FAQ 编号原本各占一列，把标题顶到
+      wrap 内容边缘之外，全站标题因此落在 112 / 160 / 172 三条线上，
+      而正文只在 112 —— 看起来就是「标题没左对齐，内容却左对齐」
+   2) --mono 的拉丁走 Consolas、汉字回退雅黑，同一行像两种字体；
+      button 不继承字族，UA 默认的 Arial 让中文控件同样混排
+   3) 唱片中心标签把 YUNSHENG 折成每行两个字
+   4) 缩略图说明 10.5px + --paper-5（2.1:1）读不出来
+   ============================================================ */
+
+/* ---------- 1. 字体栈收敛 ---------- */
+:root {
+  /* 等宽栈补上 CJK 回退，让汉字至少回到与拉丁同源的族 */
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", "PingFang SC", "Microsoft YaHei", monospace;
+}
+
+/* 控件默认不继承字族（UA 给 button 套 Arial），
+   于是「车停 暂停」「关闭」这类中文标签里拉丁与汉字分属两族 */
+button, input, select, textarea { font-family: inherit; }
+
+/* 含汉字的小标签一律回正文栈；等宽只留给纯 ASCII（版本号 / 日期 / SHA） */
+.shot figcaption,
+.bar-cap,
+.bar-txt,
+.bar-play,
+.lb-close,
+.log-more-btn {
+  font-family: var(--sans);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.shot figcaption { font-size: 11.5px; color: var(--paper-3); }
+.bar-cap { color: var(--paper-3); }
+
+/* ---------- 2. 左基准线：标题与正文共用 wrap 内容边缘 ---------- */
+
+/* 章节序号改为悬挂标记，落进 wrap 自己的 --gut 内边距，不再占列 */
+.sec-head {
+  display: block;
+  position: relative;
+}
+.sec-head .sec-num {
+  position: absolute;
+  left: calc(-1 * var(--gut));
+  top: 12px;
+  width: var(--gut);
+  padding-top: 0;
+}
+
+/* 功能表：序号同样悬挂，标题与描述都回到内容边缘 */
+.feat {
+  display: block;
+  position: relative;
+  padding: 17px 0 19px;
+}
+.feat .n {
+  position: absolute;
+  left: calc(-1 * var(--gut));
+  top: 21px;
+  width: var(--gut);
+  padding-top: 0;
+}
+.feat h3 { margin: 0; }
+.feat p { margin: 9px 0 0; max-width: 68ch; }
+
+/* 更新日志：版本 / 日期 / 标签排成一行，标题与正文回到内容边缘 */
+.log { display: block; }
+.log .log-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 5px 16px;
+  margin: 0 0 16px;
+}
+.log .log-left > * { margin-top: 0; }
+.log .log-title { margin-top: 0; }
+
+/* FAQ：Q 编号悬挂，问题文字回到内容边缘 */
+summary { position: relative; }
+summary .q {
+  position: absolute;
+  left: calc(-1 * var(--gut));
+  top: 27px;
+  width: var(--gut);
+}
+summary .ico { margin-left: auto; }
+
+/* 下载台：面板向左吃掉自己那一份内边距，标题落到与其他章节同一条线 */
+#download .desk { margin-left: calc(-1 * var(--gut)); }
+#download .desk-l { padding-left: calc(var(--gut) - 1px); }
+
+/* ---------- 3. 唱片中心标签 ---------- */
+.label-text small {
+  display: block;
+  white-space: nowrap;
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.78);
+  margin-top: 5px;
+}
+
+/* ---------- 4. 手机档 ---------- */
+@media (max-width: 760px) {
+  .sec-head .sec-num { top: 10px; }
+  .feat { padding: 14px 0 16px; }
+  .feat .n { top: 17px; font-size: 11px; }
+  .feat p { margin-top: 8px; }
+  .log .log-left { gap: 4px 12px; margin-bottom: 12px; }
+  summary .q { top: 19px; font-size: 12px; }
+  .shot figcaption { font-size: 11px; }
+  .label-text small { font-size: 7px; }
+}
